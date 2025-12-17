@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164809435960",
+    "project_id": "sayarahub-dev",
+    "storage_bucket": "sayarahub-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164809435960:android:2f6e40ff05ab1b3fb82fcd",
+        "android_client_info": {
+          "package_name": "com.example.sayara_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgDE_iawN4wFspDPfRnc329v3BLl5d6vU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
