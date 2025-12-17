@@ -41,14 +41,17 @@ class ProfileController extends GetxController {
 
   // UPDATED LOGOUT: This is what allows you to log back in
   Future<void> logout() async {
-    try {
-      // Use your existing AuthService to handle the heavy lifting
-      await AuthService.to.logout(); 
-      
-      // Navigate back to Auth
-      Get.offAllNamed('/auth'); 
-    } catch (e) {
-      Get.snackbar("Error", "Logout failed: $e");
-    }
+  try {
+    // This clears Google, Facebook, and Firebase sessions
+    await AuthService.to.logout(); 
+    
+    // Use offAllNamed to prevent the user from pressing "Back" to return to Profile
+    Get.offAllNamed('/auth'); 
+  } catch (e) {
+    // If the service fails, force a Firebase logout and redirect anyway
+    await FirebaseAuth.instance.signOut();
+    Get.offAllNamed('/auth');
+    Get.snackbar("Logout", "You have been signed out.");
   }
+}
 }
