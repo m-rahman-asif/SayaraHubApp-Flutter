@@ -80,6 +80,19 @@ flutter:
     - assets/logo.png
     - assets/google_logo.png
     - assets/facebook_logo.png
+    - assets/ac_repair.png
+    - assets/tires.png
+    - assets/engine.png
+    - assets/electrical.png
+    - assets/div-1.png
+    - assets/div-2.png
+    - assets/Hyundai.png
+    - assets/Nissan.png
+    - assets/Subaru.png
+    - assets/Suzuki.png
+    - assets/Chery.png
+    - assets/Datsun.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

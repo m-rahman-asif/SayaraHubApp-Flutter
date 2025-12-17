@@ -8,19 +8,386 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Home")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
           children: [
-            const Text("Home Screen Placeholder"),
-            ElevatedButton(
-              onPressed: () => controller.logout(),
-              child: const Text("Logout"),
-            ),
+            const Icon(Icons.directions_car, color: Color(0xFF1E56D9)),
+            const SizedBox(width: 8),
+            const Text("SayaraHub", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Obx(() => CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage(controller.user.value?.photoURL ?? 'https://via.placeholder.com/150'),
+            )),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildSearchCard(),
+            _buildEmergencyBanner(),
+            _buildSectionHeader("Popular Services"),
+            _buildServiceGrid(),
+            _buildSectionHeader("Top Rated Garages", showViewAll: true),
+            _buildGarageList(),
           ],
         ),
       ),
+      bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildSearchCard() {
+  return Container(
+    margin: const EdgeInsets.all(16),
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: const Color(0xFF1E56D9), // Primary brand blue
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Find Car Services Near You",
+          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const Text(
+          "Emergency repairs, maintenance & more",
+          style: TextStyle(color: Colors.white70, fontSize: 13),
+        ),
+        const SizedBox(height: 20),
+        
+        // The White Filter Box
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  // Location Dropdown
+                  Expanded(
+                    child: _buildDropdownField("location"),
+                  ),
+                  const SizedBox(width: 12),
+                  // Service Type Dropdown
+                  Expanded(
+                    child: _buildDropdownField("Service type..."),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Search Button
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2E6FF1), // Brighter blue button
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    "Search garage",
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 5),
+        
+        // Brand Icons Row
+        _buildBrandMarquee(),
+      ],
+    ),
+  );
+}
+
+// Place this inside your HomeView class
+Widget _buildBrandMarquee() {
+  final List<String> logos = [
+    'assets/Subaru.png', 'assets/Nissan.png', 'assets/Chery.png',
+    'assets/Suzuki.png', 'assets/Datsun.png', 'assets/Hyundai.png'
+  ];
+
+  return Container(
+    height: 45,
+    margin: const EdgeInsets.only(top: 20),
+    decoration: BoxDecoration(
+      color: Colors.white, // White background strip
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: ListView.builder(
+      controller: controller.scrollController,
+      scrollDirection: Axis.horizontal,
+      physics: const NeverScrollableScrollPhysics(),
+      // itemBuilder uses modulo to loop through the logo list endlessly
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Image.asset(
+            logos[index % logos.length], 
+            height: 25,
+            fit: BoxFit.contain,
+          ),
+        );
+      },
+    ),
+  );
+}
+
+// Helper for the dropdown style
+Widget _buildDropdownField(String hint) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.grey.shade200),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(hint, style: TextStyle(color: Colors.grey.shade500, fontSize: 14)),
+        const Icon(Icons.keyboard_arrow_down, color: Colors.grey, size: 20),
+      ],
+    ),
+  );
+}
+
+// Helper for the Brand Logos
+Widget _buildBrandIcon(String assetPath) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 15),
+    child: Image.asset(assetPath, height: 25, fit: BoxFit.contain),
+  );
+}
+
+  Widget _buildEmergencyBanner() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: const Color(0xFFE94444), borderRadius: BorderRadius.circular(16)),
+      child: Row(
+        children: [
+          const Icon(Icons.warning_amber_rounded, color: Colors.white, size: 32),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Emergency Service", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                Text("24/7 Available", style: TextStyle(color: Colors.white70, fontSize: 12)),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.red),
+            child: const Text("Search Now"),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, {bool showViewAll = false}) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          if (showViewAll) const Text("View All", style: TextStyle(color: Color(0xFF1E56D9))),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildServiceGrid() {
+  // Define your services with the paths to your new images
+  final services = [
+    {'name': 'AC Repair', 'image': 'assets/ac_repair.png'},
+    {'name': 'Tires', 'image': 'assets/tires.png'},
+    {'name': 'Engine', 'image': 'assets/engine.png'},
+    {'name': 'Electrical', 'image': 'assets/electrical.png'},
+  ];
+
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2, 
+      childAspectRatio: 2.8, 
+      mainAxisSpacing: 12, 
+      crossAxisSpacing: 12
+    ),
+    itemCount: services.length,
+    itemBuilder: (context, index) {
+      return Container(
+        decoration: BoxDecoration(
+          color: Colors.white, 
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Using Image.asset here instead of Icon
+            Image.asset(
+              services[index]['image']!, 
+              width: 24, 
+              height: 24,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              services[index]['name']!, 
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+  Widget _buildGarageList() {
+  return ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: 2, // You can link this to your controller's list later
+    itemBuilder: (context, index) {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Garage Image with rounded corners
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                index == 0 
+                  ? 'https://example.com/garage1.jpg' // Use your real image URLs
+                  : 'https://example.com/garage2.jpg',
+                width: 85,
+                height: 85,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  width: 85, height: 85, color: Colors.grey[200],
+                  child: const Icon(Icons.image, color: Colors.grey),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            // Details Column
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Al Majid Auto Service",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.orange, size: 16),
+                      const Text(
+                        " 4.8",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                      Text(
+                        " (127) • 2.3 km",
+                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      // "Open" Status Tag
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.green[50],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          "Open",
+                          style: TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      // Service labels
+                      const Expanded(
+                        child: Text(
+                          "AC • Engine • Brakes",
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.more_vert, color: Colors.grey),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+  Widget _buildBottomNav() {
+    return BottomNavigationBar(
+      currentIndex: 0,
+      onTap: (index) {
+        if (index == 1) Get.toNamed('/notifications');
+        if (index == 2) Get.toNamed('/profile');
+      },
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: 'Notification'),
+        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+      ],
     );
   }
 }
