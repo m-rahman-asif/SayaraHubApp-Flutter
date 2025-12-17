@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'home_controller.dart';
 
+
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
@@ -377,17 +378,26 @@ Widget _buildBrandIcon(String assetPath) {
 }
 
   Widget _buildBottomNav() {
-    return BottomNavigationBar(
-      currentIndex: 0,
-      onTap: (index) {
-        if (index == 1) Get.toNamed('/notifications');
-        if (index == 2) Get.toNamed('/profile');
-      },
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: 'Notification'),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
-      ],
-    );
-  }
+  return BottomNavigationBar(
+    currentIndex: 0, // Highlight the Home icon
+    selectedItemColor: const Color(0xFF1E56D9), // Primary blue from your brand
+    unselectedItemColor: Colors.grey,
+    onTap: (index) {
+      if (index == 0) {
+        // Already on Home, do nothing or scroll to top
+      } else if (index == 1) {
+        // Navigate to Notifications
+        Get.toNamed('/notifications'); 
+      } else if (index == 2) {
+        // Navigate to Profile
+        Get.toNamed('/profile');
+      }
+    },
+    items: const [
+      BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+      BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: 'Notification'),
+      BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+    ],
+  );
+}
 }
