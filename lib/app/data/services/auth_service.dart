@@ -7,7 +7,10 @@ class AuthService extends GetxService {
   static AuthService get to => Get.find();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: ['email'],
+);
+
 
   // Observable user to react to changes
   Rxn<User> currentUser = Rxn<User>();
