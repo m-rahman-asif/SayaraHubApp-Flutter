@@ -90,12 +90,19 @@ flutter run
 ## Dependencies
 
 get: ^4.6.5
+
 firebase_core: ^2.25.0
+
 firebase_auth: ^4.8.0
+
 get_storage: ^2.0.3
+
 google_sign_in: ^6.1.0
+
 flutter_facebook_auth: ^5.1.2
+
 google_fonts: ^4.0.4
+
 flutter_slidable: ^3.0.0
 
 (Check pubspec.yaml for exact versions)
