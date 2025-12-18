@@ -17,7 +17,7 @@ SayaraHub is a cross-platform Flutter application that provides car service disc
 
 ## Screenshots
 
-Screenshots are provided in the "in_app_screenshots" folder.
+Screenshots of the functioning app are provided in the "in_app_screenshots" folder.
 
 ---
 
@@ -48,7 +48,7 @@ flutter pub get
 
 This project uses Firebase for authentication and push notifications. Follow these steps:
 
-####Android
+###Android
 
 1. Go to Firebase Console and create a project (e.g., sayarahub-dev).
 
@@ -64,7 +64,7 @@ classpath 'com.google.gms:google-services:4.3.15' // Check for latest version
 
 apply plugin: 'com.google.gms.google-services'
 
-####iOS
+###iOS
 
 1. Add an iOS app in Firebase with your bundle ID (com.example.sayaraHub).
 
@@ -74,7 +74,7 @@ apply plugin: 'com.google.gms.google-services'
 
 4. Run pod install in ios/.
 
-####FlutterFire CLI (Optional)
+###FlutterFire CLI (Optional)
 
 If you want to regenerate firebase_options.dart:
 
@@ -83,8 +83,9 @@ flutterfire configure
 
 ### 4. Run the App
 
-```bash
 flutter run
+
+---
 
 ## Project Structure
 
@@ -109,6 +110,8 @@ views      : UI pages
 bindings   : Dependency injection
 services   : Firebase authentication and API services
 
+---
+
 ## Dependencies
 
 get: ^4.6.5
@@ -121,6 +124,8 @@ google_fonts: ^4.0.4
 flutter_slidable: ^3.0.0
 
 (Check pubspec.yaml for exact versions)
+
+---
 
 ##Contributing
 
