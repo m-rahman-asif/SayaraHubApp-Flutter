@@ -15,6 +15,8 @@ import 'app/modules/profile/profile_binding.dart';
 import 'app/modules/profile/profile_controller.dart';
 import 'app/modules/auth/auth_binding.dart';
 import 'app/data/services/auth_service.dart';
+import 'package:sayara_hub/app/modules/welcome/welcome_view.dart';
+import 'package:sayara_hub/app/modules/welcome/welcome_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,14 +25,16 @@ void main() async {
 
   // Initialize your service so AuthService.to is available
   Get.put(AuthService()); 
+  Get.put(WelcomeController());
 
   User? user = FirebaseAuth.instance.currentUser;
-  String initialRoute = (user == null) ? '/auth' : '/home';
+  //String initialRoute = '/welcome';
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: initialRoute,
+    initialRoute: '/welcome',
     getPages: [
+  GetPage(name: '/welcome', page: () => WelcomeView()),
   GetPage(name: '/auth', page: () => const AuthView(), binding: AuthBinding()),
   GetPage(name: '/home', page: () => const HomeView(), binding: HomeBinding()),
   GetPage(name: '/profile', page: () => const ProfileView(), binding: ProfileBinding()),

@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^5.3.4
   google_sign_in: ^6.2.1
   flutter_facebook_auth: ^7.1.1
+  google_fonts: ^6.1.0
   firebase_messaging: ^15.1.6
   flutter_local_notifications: ^18.0.1 # Essential for displaying foreground notifications
 
@@ -73,6 +74,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/SayaraHub.png
     - assets/logo.png
     - assets/google_logo.png
     - assets/facebook_logo.png
