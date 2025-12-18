@@ -87,31 +87,6 @@ flutter run
 
 ---
 
-## Project Structure
-
-lib/
-├── app/
-│   ├── modules/
-|   |   ├──splash/splash_binding.dart, splash_controller.dart, splash_service.dart
-│   │   ├── welcome/welcome_controller.dart, welcome_service.dart
-│   │   ├── auth/auth_binding.dart, auth_controller.dart, auth_service.dart
-│   │   ├── home/home_binding.dart, home_controller.dart, home_service.dart
-│   │   ├── profile/profile_binding.dart, profile_controller.dart, profile_service.dart
-│   │   └── notifications/notifications_binding.dart, notifications_controller.dart, notifications_service.dart
-│   ├── data/
-│   │   └── services/auth_service.dart
-│   └── routes/app_pages.dart, app_routes.dart
-└── main.dart
-└── firebase_options.dart
-
-
-controllers: Business logic using GetX
-views      : UI pages
-bindings   : Dependency injection
-services   : Firebase authentication and API services
-
----
-
 ## Dependencies
 
 get: ^4.6.5
