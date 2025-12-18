@@ -9,6 +9,25 @@ class HomeController extends GetxController {
   // 2. Define the ScrollController for the brand marquee
   final ScrollController scrollController = ScrollController();
 
+  final List<Map<String, String>> garages = [
+    {
+      'name': 'Al Majid Auto Service',
+      'image': 'assets/auto1.png',
+      'rating': '4.8',
+      'reviews': '127',
+      'distance': '2.3 km',
+      'services': 'AC • Engine • Brakes',
+    },
+    {
+      'name': 'Emirates Auto Care',
+      'image': 'assets/auto2.png',
+      'rating': '4.9',
+      'reviews': '89',
+      'distance': '1.8 km',
+      'services': 'Luxury • German Cars',
+    },
+  ];
+
   @override
   void onInit() {
     super.onInit();

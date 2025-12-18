@@ -4,6 +4,7 @@ import 'notifications_controller.dart';
 class NotificationsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<NotificationsController>(() => NotificationsController());
+    // This keeps the controller in memory during the entire session
+    Get.put<NotificationsController>(NotificationsController(), permanent: true);
   }
 }

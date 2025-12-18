@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// Double check this path! If your file is in the same folder, use:
 import 'profile_controller.dart'; 
 
 class ProfileView extends GetView<ProfileController> {
@@ -8,8 +7,6 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    // If 'controller' is red here, it means ProfileBinding wasn't loaded 
-    // or the import above is failing.
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,6 +41,8 @@ class ProfileView extends GetView<ProfileController> {
                     const SizedBox(width: 15),
                     const Icon(Icons.phone_outlined, size: 16, color: Colors.grey),
                     const SizedBox(width: 4),
+                    controller.phone.value==""?
+                    Text("01521507117", style: const TextStyle(color: Colors.grey)):
                     Text(controller.phone.value, style: const TextStyle(color: Colors.grey)),
                   ],
                 ),

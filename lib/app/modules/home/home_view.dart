@@ -198,7 +198,7 @@ Widget _buildBrandIcon(String assetPath) {
           ),
           ElevatedButton(
             onPressed: () {},
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), elevation: 0, backgroundColor: Colors.white, foregroundColor: Colors.red),
             child: const Text("Search Now"),
           )
         ],
@@ -226,49 +226,53 @@ Widget _buildBrandIcon(String assetPath) {
     {'name': 'Tires', 'image': 'assets/tires.png'},
     {'name': 'Engine', 'image': 'assets/engine.png'},
     {'name': 'Electrical', 'image': 'assets/electrical.png'},
+    {'name': 'battery', 'image': 'assets/battery.png'}, // Added from image
+    {'name': 'spares', 'image': 'assets/spares.png'},
   ];
 
-  return GridView.builder(
+ return GridView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
     padding: const EdgeInsets.symmetric(horizontal: 16),
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2, 
-      childAspectRatio: 2.8, 
-      mainAxisSpacing: 12, 
-      crossAxisSpacing: 12
+      crossAxisCount: 3, 
+      childAspectRatio: 2.1, 
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
     ),
     itemCount: services.length,
     itemBuilder: (context, index) {
       return Container(
         decoration: BoxDecoration(
-          color: Colors.white, 
-          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey.shade100),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
+        // Center the Row content inside the Container
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center, // Centers the group horizontally
+          crossAxisAlignment: CrossAxisAlignment.center, // Centers the group vertically
           children: [
-            // Using Image.asset here instead of Icon
             Image.asset(
-              services[index]['image']!, 
-              width: 24, 
-              height: 24,
+              services[index]['image']!,
+              width: 18, 
+              height: 18,
               fit: BoxFit.contain,
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 6),
             Text(
-              services[index]['name']!, 
+              services[index]['name']!,
               style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: Colors.black87,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF2D3142),
               ),
             ),
           ],
@@ -277,13 +281,14 @@ Widget _buildBrandIcon(String assetPath) {
     },
   );
 }
-
-  Widget _buildGarageList() {
+ Widget _buildGarageList() {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: 2, // You can link this to your controller's list later
+    itemCount: controller.garages.length, // Uses the actual list length
     itemBuilder: (context, index) {
+      final garage = controller.garages[index]; // Get current garage data
+      
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         padding: const EdgeInsets.all(12),
@@ -300,42 +305,34 @@ Widget _buildBrandIcon(String assetPath) {
         ),
         child: Row(
           children: [
-            // Garage Image with rounded corners
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                index == 0 
-                  ? 'https://example.com/garage1.jpg' // Use your real image URLs
-                  : 'https://example.com/garage2.jpg',
+              child: Image.asset(
+                garage['image']!, // Dynamic image
                 width: 85,
                 height: 85,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  width: 85, height: 85, color: Colors.grey[200],
-                  child: const Icon(Icons.image, color: Colors.grey),
-                ),
               ),
             ),
             const SizedBox(width: 12),
-            // Details Column
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Al Majid Auto Service",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  Text(
+                    garage['name']!, // Dynamic Name
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       const Icon(Icons.star, color: Colors.orange, size: 16),
-                      const Text(
-                        " 4.8",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                      Text(
+                        " ${garage['rating']}", // Dynamic Rating
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                       ),
                       Text(
-                        " (127) • 2.3 km",
+                        " (${garage['reviews']}) • ${garage['distance']}", // Dynamic distance
                         style: TextStyle(color: Colors.grey[600], fontSize: 13),
                       ),
                     ],
@@ -343,7 +340,6 @@ Widget _buildBrandIcon(String assetPath) {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      // "Open" Status Tag
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
@@ -356,11 +352,10 @@ Widget _buildBrandIcon(String assetPath) {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      // Service labels
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          "AC • Engine • Brakes",
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                          garage['services']!, // Dynamic services
+                          style: const TextStyle(color: Colors.grey, fontSize: 12),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -376,6 +371,10 @@ Widget _buildBrandIcon(String assetPath) {
     },
   );
 }
+
+}
+
+
 
   Widget _buildBottomNav() {
   return BottomNavigationBar(
@@ -399,5 +398,4 @@ Widget _buildBrandIcon(String assetPath) {
       BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
     ],
   );
-}
 }

@@ -36,22 +36,29 @@ class AuthView extends GetView<AuthController> {
               const SizedBox(height: 16),
 
               // Password Field
-              _buildTextField(
-                hint: "Password",
-                icon: Icons.lock_outline,
-                isPassword: true,
-              ),
+              // Password Field
+Obx(() => _buildTextField(
+  hint: "Password",
+  icon: Icons.lock_outline,
+  isPassword: true,
+  obscureText: controller.isPasswordHidden.value,
+  onSuffixIconTap: () => controller.togglePasswordVisibility(),
+)),
 
               // Remember Me & Forgot Password
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: [
-                      Checkbox(value: false, onChanged: (val) {}),
-                      const Text("Remember me"),
-                    ],
-                  ),
+  children: [
+    Obx(() => Checkbox(
+      value: controller.isRememberMeChecked.value, 
+      onChanged: (val) => controller.toggleRememberMe(val),
+      activeColor: const Color(0xFF1E56D9), // Adds brand color to the tick
+    )),
+    const Text("Remember me"),
+  ],
+),
                   TextButton(
                     onPressed: () {},
                     child: const Text("Forgot Password?", style: TextStyle(color: Color(0xFF1E56D9))),
@@ -120,22 +127,33 @@ class AuthView extends GetView<AuthController> {
     );
   }
 
-  Widget _buildTextField({required String hint, required IconData icon, bool isPassword = false}) {
-    return TextField(
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        hintText: hint,
-        prefixIcon: Icon(icon),
-        suffixIcon: isPassword ? const Icon(Icons.visibility_off_outlined) : null,
-        filled: true,
-        fillColor: const Color(0xFFF3F6FF),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
+  Widget _buildTextField({
+  required String hint, 
+  required IconData icon, 
+  bool isPassword = false, 
+  bool obscureText = false, // Added parameter
+  VoidCallback? onSuffixIconTap, // Added parameter
+}) {
+  return TextField(
+    obscureText: isPassword ? obscureText : false,
+    decoration: InputDecoration(
+      hintText: hint,
+      prefixIcon: Icon(icon),
+      suffixIcon: isPassword 
+        ? IconButton(
+            icon: Icon(obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined),
+            onPressed: onSuffixIconTap,
+          ) 
+        : null,
+      filled: true,
+      fillColor: const Color(0xFFF3F6FF),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _socialIcon(String assetPath, VoidCallback onTap) {
     return InkWell(
