@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:get_storage/get_storage.dart'; // Added for persistent hardcoded data
+import 'package:get_storage/get_storage.dart'; 
 import 'package:sayara_hub/app/modules/auth/auth_view.dart';
 import 'app/modules/home/home_view.dart';
 import 'app/modules/home/home_binding.dart';
 import 'app/modules/notifications/notifications_view.dart';
 import 'app/modules/notifications/notifications_binding.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // <--- ADD THIS LINE
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-// 1. IMPORT YOUR NEW PROFILE FILES HERE
+
 import 'app/modules/profile/profile_view.dart';
 import 'app/modules/profile/profile_binding.dart';
 import 'app/modules/profile/profile_controller.dart';
@@ -23,7 +23,6 @@ void main() async {
   await Firebase.initializeApp();
   await GetStorage.init();
 
-  // Initialize your service so AuthService.to is available
   Get.put(AuthService()); 
   Get.put(WelcomeController());
 
@@ -38,11 +37,11 @@ void main() async {
   GetPage(name: '/auth', page: () => const AuthView(), binding: AuthBinding()),
   GetPage(name: '/home', page: () => const HomeView(), binding: HomeBinding()),
   GetPage(name: '/profile', page: () => const ProfileView(), binding: ProfileBinding()),
-  // ADD THIS LINE:
+
   GetPage(
     name: '/notifications', 
     page: () => const NotificationsView(), 
-    binding: NotificationsBinding() // Ensures NotificationsController is loaded
+    binding: NotificationsBinding() 
   ),
 ],
   ));

@@ -1,8 +1,7 @@
-// lib/app/modules/notifications/notifications_controller.dart
 import 'package:get/get.dart';
 
 class NotificationsController extends GetxController {
-  // Define the observable list to fix the 'undefined' error
+ 
   final RxList<Map<String, String>> notifications = <Map<String, String>>[
     {
       'title': 'Bookings Alerts',

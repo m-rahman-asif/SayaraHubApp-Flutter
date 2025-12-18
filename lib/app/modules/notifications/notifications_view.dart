@@ -32,28 +32,27 @@ class NotificationsView extends GetView<NotificationsController> {
   key: ValueKey(index),
   endActionPane: ActionPane(
   motion: const ScrollMotion(),
-  // 1. EXTENT RATIO: This is the real "width" controller. 
-  // 0.25 means the action area takes 25% of the screen width.
+  
   extentRatio: 0.25, 
   children: [
     CustomSlidableAction(
   onPressed: (context) => controller.removeNotification(index),
-  backgroundColor: Colors.transparent, // Keeps the background invisible
-  padding: const EdgeInsets.only(left: 10), // Spacing from the card
-  child: Center( // Center prevents the Container from stretching vertically
+  backgroundColor: Colors.transparent, 
+  padding: const EdgeInsets.only(left: 10), 
+  child: Center( 
     child: Container(
-      width: 70, // Controlled by extentRatio, but keeps content centered
-      height: 80, // SET YOUR DESIRED HEIGHT HERE
+      width: 70, 
+      height: 80, 
       decoration: BoxDecoration(
-        color: const Color(0xFF1E56D9), // Brand Blue
-        borderRadius: BorderRadius.circular(12), // Match your reference
+        color: const Color(0xFF1E56D9), 
+        borderRadius: BorderRadius.circular(12), 
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             'assets/Delete.png', 
-            width: 24, // Matches the size of the previous icon
+            width: 24, 
             height: 24,
             fit: BoxFit.contain,
           ),
@@ -65,7 +64,7 @@ class NotificationsView extends GetView<NotificationsController> {
 ),
   ],
 ),
-  child: _buildNotificationCard(item), // Your card with the blue left border
+  child: _buildNotificationCard(item),
 ),
           );
         },
@@ -75,8 +74,7 @@ class NotificationsView extends GetView<NotificationsController> {
   }
 
   Widget _buildNotificationCard(Map<String, String> item) {
-  // Logic to select the correct icon based on the title
-  // REPLACE getIconData WITH THIS:
+  
 Widget _getIconData(String title) {
   // Condition for New/Feature Alerts
   if (title.contains('New')) {
@@ -126,7 +124,7 @@ Widget _getIconData(String title) {
               children: [
                 Row(
                   children: [
-                    // DYNAMIC ICON: Uses the helper method
+                    
                     _getIconData(item['title']!),
                     const SizedBox(width: 10),
                     Text(item['title']!, 
@@ -148,10 +146,10 @@ Widget _getIconData(String title) {
   );
 }
 
-  // Define this to fix the image_a3d3e1.png error
+ 
   Widget _buildBottomNav() {
     return BottomNavigationBar(
-      currentIndex: 1, // Highlight Notifications
+      currentIndex: 1, 
       selectedItemColor: const Color(0xFF1E56D9),
       unselectedItemColor: Colors.grey,
       onTap: (index) {

@@ -51,7 +51,7 @@ class HomeView extends GetView<HomeController> {
     margin: const EdgeInsets.all(16),
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      color: const Color(0xFF1E56D9), // Primary brand blue
+      color: const Color(0xFF1E56D9), 
       borderRadius: BorderRadius.circular(24),
     ),
     child: Column(
@@ -97,7 +97,7 @@ class HomeView extends GetView<HomeController> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E6FF1), // Brighter blue button
+                    backgroundColor: const Color(0xFF2E6FF1), 
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     elevation: 0,
                   ),
@@ -119,7 +119,7 @@ class HomeView extends GetView<HomeController> {
   );
 }
 
-// Place this inside your HomeView class
+
 Widget _buildBrandMarquee() {
   final List<String> logos = [
     'assets/Subaru.png', 'assets/Nissan.png', 'assets/Chery.png',
@@ -137,7 +137,7 @@ Widget _buildBrandMarquee() {
       controller: controller.scrollController,
       scrollDirection: Axis.horizontal,
       physics: const NeverScrollableScrollPhysics(),
-      // itemBuilder uses modulo to loop through the logo list endlessly
+      
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -220,13 +220,13 @@ Widget _buildBrandIcon(String assetPath) {
   }
 
   Widget _buildServiceGrid() {
-  // Define your services with the paths to your new images
+  
   final services = [
     {'name': 'AC Repair', 'image': 'assets/ac_repair.png'},
     {'name': 'Tires', 'image': 'assets/tires.png'},
     {'name': 'Engine', 'image': 'assets/engine.png'},
     {'name': 'Electrical', 'image': 'assets/electrical.png'},
-    {'name': 'battery', 'image': 'assets/battery.png'}, // Added from image
+    {'name': 'battery', 'image': 'assets/battery.png'}, 
     {'name': 'spares', 'image': 'assets/spares.png'},
   ];
 
@@ -255,10 +255,10 @@ Widget _buildBrandIcon(String assetPath) {
             ),
           ],
         ),
-        // Center the Row content inside the Container
+       
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // Centers the group horizontally
-          crossAxisAlignment: CrossAxisAlignment.center, // Centers the group vertically
+          mainAxisAlignment: MainAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center, 
           children: [
             Image.asset(
               services[index]['image']!,
@@ -285,7 +285,7 @@ Widget _buildBrandIcon(String assetPath) {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: controller.garages.length, // Uses the actual list length
+    itemCount: controller.garages.length, 
     itemBuilder: (context, index) {
       final garage = controller.garages[index]; // Get current garage data
       
@@ -308,7 +308,7 @@ Widget _buildBrandIcon(String assetPath) {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
-                garage['image']!, // Dynamic image
+                garage['image']!, 
                 width: 85,
                 height: 85,
                 fit: BoxFit.cover,
@@ -328,11 +328,11 @@ Widget _buildBrandIcon(String assetPath) {
                     children: [
                       const Icon(Icons.star, color: Colors.orange, size: 16),
                       Text(
-                        " ${garage['rating']}", // Dynamic Rating
+                        " ${garage['rating']}", 
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                       ),
                       Text(
-                        " (${garage['reviews']}) • ${garage['distance']}", // Dynamic distance
+                        " (${garage['reviews']}) • ${garage['distance']}", 
                         style: TextStyle(color: Colors.grey[600], fontSize: 13),
                       ),
                     ],
@@ -354,7 +354,7 @@ Widget _buildBrandIcon(String assetPath) {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          garage['services']!, // Dynamic services
+                          garage['services']!, 
                           style: const TextStyle(color: Colors.grey, fontSize: 12),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -378,12 +378,12 @@ Widget _buildBrandIcon(String assetPath) {
 
   Widget _buildBottomNav() {
   return BottomNavigationBar(
-    currentIndex: 0, // Highlight the Home icon
-    selectedItemColor: const Color(0xFF1E56D9), // Primary blue from your brand
+    currentIndex: 0, 
+    selectedItemColor: const Color(0xFF1E56D9), 
     unselectedItemColor: Colors.grey,
     onTap: (index) {
       if (index == 0) {
-        // Already on Home, do nothing or scroll to top
+       
       } else if (index == 1) {
         // Navigate to Notifications
         Get.toNamed('/notifications'); 

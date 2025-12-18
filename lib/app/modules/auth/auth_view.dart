@@ -35,8 +35,7 @@ class AuthView extends GetView<AuthController> {
               ),
               const SizedBox(height: 16),
 
-              // Password Field
-              // Password Field
+             
 Obx(() => _buildTextField(
   hint: "Password",
   icon: Icons.lock_outline,
@@ -54,7 +53,7 @@ Obx(() => _buildTextField(
     Obx(() => Checkbox(
       value: controller.isRememberMeChecked.value, 
       onChanged: (val) => controller.toggleRememberMe(val),
-      activeColor: const Color(0xFF1E56D9), // Adds brand color to the tick
+      activeColor: const Color(0xFF1E56D9), 
     )),
     const Text("Remember me"),
   ],
@@ -72,7 +71,7 @@ Obx(() => _buildTextField(
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
-                  onPressed: () {}, // For now, we focus on Social Login
+                  onPressed: () {}, 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1E56D9),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -97,12 +96,12 @@ Obx(() => _buildTextField(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _socialIcon(
-                    "assets/google_logo.png", // Ensure you have this in assets
+                    "assets/google_logo.png", 
                     () => controller.loginWithGoogle(),
                   ),
                   const SizedBox(width: 20),
                   _socialIcon(
-                    "assets/facebook_logo.png", // Ensure you have this in assets
+                    "assets/facebook_logo.png", 
                     () => controller.loginWithFacebook(),
                   ),
                 ],
@@ -131,8 +130,8 @@ Obx(() => _buildTextField(
   required String hint, 
   required IconData icon, 
   bool isPassword = false, 
-  bool obscureText = false, // Added parameter
-  VoidCallback? onSuffixIconTap, // Added parameter
+  bool obscureText = false, 
+  VoidCallback? onSuffixIconTap, 
 }) {
   return TextField(
     obscureText: isPassword ? obscureText : false,

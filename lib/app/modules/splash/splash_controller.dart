@@ -8,11 +8,10 @@ class SplashController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    
-    // Simulate a short delay for branding (optional)
+  
     await Future.delayed(const Duration(seconds: 2));
 
-    // Check Authentication State
+  
     if (AuthService.to.currentUser.value != null) {
       Get.offAllNamed(Routes.HOME);
     } else {

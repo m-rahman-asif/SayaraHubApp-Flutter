@@ -94,7 +94,7 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  // Ensure these helper methods are INSIDE the ProfileView class
+  
   Widget _buildSettingsItem({required IconData icon, required String title, required String subtitle, required Widget trailing}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

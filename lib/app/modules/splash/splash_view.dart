@@ -9,7 +9,7 @@ class SplashView extends GetView<SplashController> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(), // Simple loading state
+        child: CircularProgressIndicator(),
       ),
     );
   }

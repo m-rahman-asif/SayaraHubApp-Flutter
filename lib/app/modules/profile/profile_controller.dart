@@ -6,7 +6,7 @@ import 'package:sayara_hub/app/data/services/auth_service.dart';
 
 class ProfileController extends GetxController {
   final _auth = FirebaseAuth.instance;
-  // This line will stop being red after 'flutter pub add google_sign_in'
+ 
   final GoogleSignIn _googleSignIn = GoogleSignIn(); 
 
   final box = GetStorage(); 
@@ -39,16 +39,16 @@ class ProfileController extends GetxController {
     box.write('notif_on', val);
   }
 
-  // UPDATED LOGOUT: This is what allows you to log back in
+  
   Future<void> logout() async {
   try {
-    // This clears Google, Facebook, and Firebase sessions
+   
     await AuthService.to.logout(); 
     
-    // Use offAllNamed to prevent the user from pressing "Back" to return to Profile
+  
     Get.offAllNamed('/auth'); 
   } catch (e) {
-    // If the service fails, force a Firebase logout and redirect anyway
+   
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed('/auth');
     Get.snackbar("Logout", "You have been signed out.");

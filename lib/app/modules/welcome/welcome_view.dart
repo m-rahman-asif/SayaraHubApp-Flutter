@@ -18,13 +18,11 @@ class WelcomeView extends GetView<WelcomeController> {
 
       backgroundColor: Colors.white,
 
-      // Using Stack allows the button to be pinned to the absolute bottom
 
       body: Stack(
 
         children: [
 
-          // 1. MAIN CONTENT (Logo and Word Box)
 
           SafeArea(
 
@@ -122,7 +120,7 @@ class WelcomeView extends GetView<WelcomeController> {
 
                     )),
 
-                const Spacer(flex: 5), // Increased bottom spacer to clear the button
+                const Spacer(flex: 5), 
 
               ],
 
@@ -132,7 +130,7 @@ class WelcomeView extends GetView<WelcomeController> {
 
 
 
-          // 2. FULL WIDTH ANIMATED BUTTON
+       
 
           Positioned(
 
@@ -150,7 +148,7 @@ class WelcomeView extends GetView<WelcomeController> {
 
               tween: Tween<Offset>(
 
-                begin: const Offset(0, 100), // Slide up from below
+                begin: const Offset(0, 100), 
 
                 end: const Offset(0, 0),
 
@@ -170,9 +168,9 @@ class WelcomeView extends GetView<WelcomeController> {
 
               child: SizedBox(
 
-                width: double.infinity, // Takes total screen width
+                width: double.infinity, 
 
-                height: 80, // Taller height for the full-width design
+                height: 80, 
 
                 child: ElevatedButton(
 
@@ -180,7 +178,7 @@ class WelcomeView extends GetView<WelcomeController> {
 
                     backgroundColor: const Color(0xFF2455D9),
 
-                    elevation: 0, // Flat look works better for full-width
+                    elevation: 0, 
 
                     shape: const RoundedRectangleBorder(
 

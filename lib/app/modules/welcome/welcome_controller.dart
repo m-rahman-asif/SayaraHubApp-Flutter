@@ -5,13 +5,13 @@ import 'dart:async';
 class WelcomeController extends GetxController {
 
   final List<String> words = ["Fix", "Drive", "Find"];
-  var currentIndex = 0.obs; // .obs makes it observable by the UI
+  var currentIndex = 0.obs;
   Timer? _timer;
 
   @override
   void onInit() {
     super.onInit();
-    // Start cycling every 2 seconds
+  
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       currentIndex.value = (currentIndex.value + 1) % words.length;
     });
@@ -19,15 +19,15 @@ class WelcomeController extends GetxController {
 
   @override
   void onClose() {
-    _timer?.cancel(); // Clean up the timer when the screen is closed
+    _timer?.cancel(); 
     super.onClose();
   }
   void onLetsGoPressed() {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      Get.offAllNamed('/home'); // Go to Home if session exists
+      Get.offAllNamed('/home'); 
     } else {
-      Get.toNamed('/auth');    // Go to Login if new user
+      Get.toNamed('/auth');    
     }
   }
 }
