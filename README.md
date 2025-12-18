@@ -37,13 +37,11 @@ Follow these steps to run the project locally:
 
 ### 1. Clone the Repository
 
-```bash
 git clone https://github.com/m-rahman-asif/SayaraHubApp-Flutter.git
 cd <SayaraHubApp-Flutter>
 
 ### 2. Install Flutter Dependencies
 
-```Terminal
 flutter pub get
 
 ### 3. Firebase Configuration
