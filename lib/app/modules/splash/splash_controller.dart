@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import '../../data/services/auth_service.dart';
 import '../../routes/app_routes.dart';
 
+
+
 class SplashController extends GetxController {
   @override
   void onReady() async {
@@ -18,3 +20,4 @@ class SplashController extends GetxController {
     }
   }
 }
+

@@ -43,23 +43,24 @@ class AuthService extends GetxService {
 
   // Facebook Sign In
   Future<UserCredential?> signInWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final AccessToken accessToken = result.accessToken!;
-        final AuthCredential credential = FacebookAuthProvider.credential(accessToken.tokenString);
-        return await _auth.signInWithCredential(credential);
-      } else if (result.status == LoginStatus.cancelled) {
-        return null;
-      } else {
-        Get.snackbar("Error", "Facebook Login Failed: ${result.message}");
-        return null;
-      }
-    } catch (e) {
-      Get.snackbar("Error", "Facebook Error: $e");
+  try {
+    // Request email and public_profile explicitly
+    final LoginResult result = await FacebookAuth.instance.login(
+      permissions: ['email', 'public_profile'],
+    );
+
+    if (result.status == LoginStatus.success) {
+      final OAuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
+      return await _auth.signInWithCredential(credential);
+    } else {
+      Get.snackbar("Facebook Error", result.message ?? "User cancelled");
       return null;
     }
+  } catch (e) {
+    Get.snackbar("Error", "Facebook Exception: $e");
+    return null;
   }
+}
 
   // Logout
   Future<void> logout() async {

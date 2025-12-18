@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sayara Hub</string>
+    <string name="facebook_app_id">2142106446324270</string>
+    <string name="fb_login_protocol_scheme">fb6be083435eb5ceb5e068f6117a7de2a1</string>
+    <string name="facebook_client_token">406e09bf431b056df0cec9bb4f9cb7c8</string>
+</resources>
